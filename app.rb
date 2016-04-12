@@ -1,4 +1,4 @@
-# A quick & dirty method
+# A quick & dirty method ####################################################
 board_a = [
   ['x', 'o', 'x'],
   ['x', nil, 'o'],
@@ -9,7 +9,7 @@ board_b = [
   ['x', 'o', nil],
   ['x', 'o', nil]
 ]
-def print_grid(board)
+def print_simple(board)
   print "\n"
   board.each_with_index do |space, board_index|
     print " "
@@ -32,14 +32,14 @@ def print_grid(board)
     end
   end
 end
-print_grid(board_a)
+print_simple(board_a)
 puts "\n"
-print_grid(board_b)
+print_simple(board_b)
 puts "\n"
 
-# A more stylish method
+# A more stylish approach ###################################################
 
-@x_ascii = [
+X = [
 "    xx     xx    ",
 "     xx   xx     ",
 "      xx xx      ",
@@ -49,7 +49,7 @@ puts "\n"
 "    xx     xx    "
 ]
 
-@o_ascii = [
+O = [
 "     OOOOOOO     ",
 "    OO     OO    ",
 "    OO     OO    ",
@@ -59,7 +59,7 @@ puts "\n"
 "     OOOOOOO     "
 ]
 
-@empty_ascii = [
+EMPTY = [
 "                 ",
 "                 ",
 "                 ",
@@ -68,13 +68,13 @@ puts "\n"
 "                 ",
 "                 ",
 ]
-@left_ascii = " *      "
+LEFT = " *      "
 
-@right_ascii = "      *"
+RIGHT = "      *"
 
-@horizontal_ascii = " *     --------------------------------------------------———       *"
+HORIZ = " *     --------------------------------------------------———       *"
 
-top_ascii = [
+TOP = [
 " *******************************************************************  ",
 " *******                     TIC-TAC-TOE                     ******* ",
 " ******************************************************************* ",
@@ -82,34 +82,37 @@ top_ascii = [
 " *                                                                 * "
 ]
 
-bottom_ascii = [
+BOTT = [
 " *                                                                 * ",
 " ******************************************************************* ",
 ]
 
 puts "\n"
-puts top_ascii
+puts TOP
 
-def print_grid(board)
+def print_stylish(board)
   spaces = []
   board.each_with_index do |space, board_index|
     board[board_index].each_with_index do |game_space, row_index|
       if game_space.nil?
-        spaces[row_index] = @empty_ascii
+        spaces[row_index] = EMPTY
       elsif game_space == 'x'
-        spaces[row_index] = @x_ascii
-      else game_space == 'o'
-        spaces[row_index] = @o_ascii
+        spaces[row_index] = X
+      else
+        spaces[row_index] = O
       end
     end
       spaces[0].each_with_index do |line, line_index|
-        puts "#{@left_ascii}#{spaces[0][line_index]}|#{spaces[1][line_index]}|#{spaces[2][line_index]}#{@right_ascii}"
+        print "#{LEFT}#{spaces[0][line_index]}|#{spaces[1][line_index]}"
+        puts  "|#{spaces[2][line_index]}#{RIGHT}"
       end
       unless board_index == 2
-        puts @horizontal_ascii
+        puts HORIZ
       end
     end
 end
+
+# App Runner ################################################################
 
 board = [
   ['x', 'o', 'x'],
@@ -117,5 +120,5 @@ board = [
   ['x', 'o', nil]
 ]
 
-print_grid(board)
-puts bottom_ascii
+print_stylish(board)
+puts BOTT
